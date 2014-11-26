@@ -1,2 +1,2 @@
-face_recogniction_thesis
+face_recognition_thesis
 ========================
