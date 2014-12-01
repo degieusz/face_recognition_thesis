@@ -79,13 +79,14 @@
 %poniĹĽej znajduje siÄ™ przykĹ‚adowa treĹ›Ä‡ dalszej czÄ™Ĺ›ci dokumentu, zainteresowanych zachÄ™cam do rozszyfrowania frazy "Lorem ipsum" :)
 
 \chapter{Wstęp}
-
 Rozpoznawanie twarzy jako technika biometryczna służąca do identyfikacji osób wykształciła się jako obiekt zainteresowań naukowców w latach osiemdziesiątych XX wieku. Pierwsze komercyjne systemy powstały w latach dziewięćdziesiątych XX wieku.\cite{historyreco}
 
 Główną cechą rozpoznawania twarzy jest bezinwazyjność. Wystarczy spojrzenie w obiektyw. Systemy wykrywające i rozpoznające twarz wymagają szczególnych warunków otoczenia do poprawnego działania. Zmiany oświetlenia, położenia twarzy względem urządzenia rejestrującego mogą w znaczny sposób zaburzyć działanie algorytmu detekcji i rozpoznawania twarzy. W skrajnych przypadkach zmiana oświetlenia lub zmiana położenia twarzy względem urządzenia rejestrującego może uniemożliwić działanie algorytmów.
 \section{Cel i zakres programu}
 Niniejsza praca dotyczy praktycznego zagadnienia zabezpieczania dostępu do zasobów. Autor zaimplementował dwuelementowe uwierzytelnianie. Sprawdzana jest znajomość zdefiniowanego wcześniej hasła dla danego użytkownika oraz porównywana jest twarz odczytana z kamery z informacjami zawartymi w bazie danych. Moduł uwierzytelniania i obsługi informacji o użytkownikach został zaimplementowany przez autora od podstaw. Za bazę do stworzenia algorytmu identyfikacji oraz rozpoznawania twarzy posłużyła biblioteka openCV. Głównym celem było stworzenie programu, który realizowałbym zadanie kontrolowania dostępu do zasobów poprzez rozpoznawanie twarzy w czasie rzeczywistym porównując z twarzami wzorcowymi oraz sprawdzanie znajomości hasła.
 
+\section{Układ pracy}
+We wstępie został opisany temat pracy, poruszone w niej zagadnienia oraz problemy związane z tematyką. W rozdziale drugim przedstawiono opis zagadnień teoretycznych związanych z tematem pracy. Opisano metody oraz biblioteki użyte w procesie realizacji założen projektu. W podsumowaniu znajdują się wnioski czego udało się dokonać, czego udało się uniknąc i co sprawiło problemy. Podana też została propozycja jednej ze ścieżek dalszego rozwoju aplikacji.
 \section{Koncepcja rozwiązania problemu}
 By zrealizować idee uwierzytelniania użytkownika na podstawie hasła oraz zdjęcia twarzy potrzebne są dwa elementy. Baza danych zawierająca nazwę użytkownika i hasło, oraz baza danych zawierająca wzorcowe zdjęcia twarzy powiązane z użytkownikiem. Oczywiście kwestią implementacyjną jest czy owe bazy będą jednym obiektem, czy też dwoma. W wypadku opisywanego projektu wybrane zostało podejście dwóch baz. Oczywiście obie te bazy są ze sobą synchronizowane i razem tworzą koncepcyjnie jedną bazę danych, nazywaną dalej bazą danych użytkowników.
 \subsection{Przechowanie nazwy użytkownika i hasła}
@@ -96,7 +97,7 @@ Uwierzytelnianie użytkowników wymaga bazy danych. Owa baza została zrealizowa
 \includegraphics{face}
 
 
-Czyli dla każdego użytkownika przeznaczona jest jedna linia w pliku. Nazwa użytkownika jest umieszczona w sposób niezakodowany, natomiast hasło umieszczone jest w sposób zakodowany prostym szyfrem Cezara. Celem autora nie była implementacja nietrywialnego algorytmu szyfrowania hasła, ponieważ przyjęte zostało założenie, iż pliki konfiguracyjne programu są umieszczone w bezpiecznej lokalizacji. Można to osiągnąć uruchamiając program z konta administratora(wtedy pliki konfiguracyjne mogą zostać umieszczone w katalogu chronionym przed odczytem przez innych użytkowników niż administrator).
+Czyli dla każdego użytkownika przeznaczona jest jedna linia w pliku. Nazwa użytkownika jest umieszczona w sposób niezakodowany, natomiast hasło umieszczone jest w sposób zakodowany prostym wariantem szyfru Cezara. Celem autora nie była implementacja nietrywialnego algorytmu szyfrowania hasła, ponieważ przyjęte zostało założenie, iż pliki konfiguracyjne programu są umieszczone w bezpiecznej lokalizacji. Można to osiągnąć uruchamiając program z konta administratora(wtedy pliki konfiguracyjne mogą zostać umieszczone w katalogu chronionym przed odczytem przez innych użytkowników niż administrator).
 \\
 
 Innym rozwiązaniem jest uruchomienie programu w dowolnym miejscu, jednak ograniczenie interface'u poprzez który użytkownicy programu mogą sterować programem. Takim ograniczeniem może być odpowiednie przygotowanie systemu operacyjnego, tak by uruchomiony program zajmował całą dostępna przestrzeń ekranu. Dodatkowo użytkownik ma do dyspozycji ekran dotykowy by móc sterować działaniem programu. Nie ma możliwości przełączenia czy też włączenia innego procesu w systemie. Takie podejście może zostać zastosowane przy projektowaniu interface'u do sterowania inteligentnym budynkiem lub pomieszczeniem.
@@ -108,90 +109,160 @@ Program oprócz wspomnianego pliku przechowującego dane tekstowe tworzy także 
 \textbullet nazwa\_użytkownika/\\
 \textbullet nazwa\_użytkownika2/\\
 
-Katalog ten w momencie dodania użytkownika do bazy danych jest wypełniany dostarczonymi przez użytkownika  pięcioma wzorcowymi zdjęciami twarzy. Wzorce te w momencie próby uzyskania dostępu do systemu przez użytkownika są porównywane z obrazem wykrytej twarzy z kamery podłączonej do systemu.
-
-\includegraphics{dir}
+Katalog ten w momencie dodania użytkownika do bazy danych jest wypełniany dostarczonymi przez użytkownika  pięcioma wzorcowymi zdjęciami twarzy. Wzorce te w momencie próby uzyskania dostępu do systemu przez użytkownika są porównywane z obrazem wykrytej twarzy z kamery podłączonej do systemu.\\
+\includegraphics[scale=0.5]{dir}
 \subsection{Konto administratora}
-Wyjątkowym przypadkiem, o którym należy wspomnieć jest konto administratora(login: root, domyślne hasło: root\_pass). Owe konto jako jedyne jest dostępne już przy pierwszym uruchomieniu programu z domyślnym hasłem dostarczonym razem z programem. Bardzo ważna ze względów bezpieczeństwa jest zmiana domyślnego hasła. Wymaganiem stawianym administratorowi podczas procedury uwierzytelniania jest podanie prawidłowego hasła. Nie jest sprawdzany obraz z kamery. Oprócz tego konto root nie posiada katalogu root w katalogu .face\_recognizer/, gdyż nie jest on potrzebny. Konto administratora jest potrzebne by dodawać i usuwać użytkowników.
+Wyjątkowym przypadkiem, o którym należy wspomnieć jest konto administratora(login: root, domyślne hasło: pass). Owe konto jako jedyne jest dostępne już przy pierwszym uruchomieniu programu z domyślnym hasłem dostarczonym razem z programem. Bardzo ważna ze względów bezpieczeństwa jest zmiana domyślnego hasła. Wymaganiem stawianym administratorowi podczas procedury uwierzytelniania jest podanie prawidłowego hasła. Nie jest sprawdzany obraz z kamery. Oprócz tego konto root nie posiada katalogu root w katalogu .face\_recognizer/, gdyż nie jest on potrzebny. Konto administratora jest potrzebne by dodawać i usuwać użytkowników.
 
 \subsection{Detekcja i rozpoznawanie twarzy}
 W celu detekcji i rozpoznawania twarzy została użyta biblioteka OpenCV. Detekcja twarzy odbywa się przy użyciu funkcji Haar-like, umożliwiającej dość dobrą i szybką detekcję obiektów. Rozpoznawanie jest zrealizowane za pomocą metody EigenFace.
 
 Podstawowy problem- szybkość przetwarzania obrazu, który zależy od mocy obliczeniowej komputera oraz zaimplementowanego algorytmu. Ważna kwestią jest poprawność wykrywania twarzy. W wypadku gdy algorytm wykryje twarz w miejscu gdzię rzeczywiście jej nie ma może to prowadzić do błędnego działania programu, a także oznacza marnowanie zasobów. Z tego powodu w programie został przyjęty minimalny rozmiar wykrytej twarzy (50x50 pixeli). Wykryte obiekty mniejsze od tej granicznej wielkości nie są przetwarzane.
 
-\section{Układ pracy}
-We wstępie został opisany temat pracy, poruszone w niej zagadnienia oraz problemy związane z tematyką. W rozdziale drugim przedstawiono opis zagadnień teoretycznych związanych z tematem pracy. Opisano metody oraz biblioteki użyte w procesie realizacji założen projektu. W podsumowaniu znajdują się wnioski czego udało się dokonać, czego udało się uniknąc i co sprawiło problemy. Podana też została propozycja jednej ze ścieżek dalszego rozwoju aplikacji.
+Takie podejście nie rozwiązuje jednak wszystkich problemów. Nadal może dojść do sytuacji, w której algorytm wykryje obszar obrazu twierdząc, że jest to twarz podczas gdy nie będzie to twarz.\\
+\includegraphics[scale=0.4]{facenotdetected}
+
+Program, który wykorzystuje funkcję Haar-like bazujący na rozpoznawaniu założonych wzorców jest szybki i dobrze pracuje w czasie rzeczywistym, jednak losowe zakłucenia w obrazie wejściowym(np. zła jakość obrazu, oświetlenie, niejednolite tło) mogą prowadzić do wskazania fragmentu obrazu nie zawierającego twarzy.\\
+
+Podobny błąd może powodować umieszczenie przed obiektywem kamery ekranu lcd, na którym wyświetlane jest zdjęcie twarzy. Owym ekranem może być telefon komórkowy, tablet. Co oznacza, że podobny efekt działania algorytmu może być osiągnięty poprzez umieszczenie np. manekina przed obiektywem kamery.\\
+\includegraphics[scale=0.4]{cellphone}
+
+Dużym wyzwaniem dla algorytmu wykrywającego jak i rozpoznającego twarz są także obroty twarzy względem kamery. Kolejnymi elementami są wszelkie ozdoby, czy też części garderoby. Okulary, czapka, zarost, tatuaże, kolczyki mogą w znaczący sposób zaburzyć owal głowy. Dla algorytmów wykrywających na podstawie koloru skóry obrót nie jest dużym problemem, jednak dla algorytmów opierających się na cechach twarzy różny jej kąt względem kamery stanowi wyzwanie.\\
+\includegraphics[scale=0.4]{hatnotdet}
+
+Detekcja jak i rozpoznawanie twarzy nie pozostają obojętne na warunki świetlne, w których wykonywane jest pobieranie obrazu przez kamerę. Oprócz samego natężenia, równomierności oświetlenia jest jeszcze kwestia jakości urządzenia pobierającego obraz. Istnieją kamery, które posiadają moduły wyrównywanie natężenia oświetlenia na pobranym obrazie realizowane zarówno sprzętowo jak i poprzez wbudowane oprogramowanie. Nie bez znaczenia pozostaje rozdzielczość kamery. Niska sprawia, że obraz jest zniekształcony co utrudnia w sposób znaczny działanie algorytmów detekcji czy rozpoznawania. Kolejnymi problemami technicznymi związanymi z budżetowymi urządzeniami pobierającymi obraz są problemy z auto fokusem. Jednym z rozwiązań jest stosowanie wysokiej jakości kamery. Choć i tutaj w skrajnych przypadkach(bardzo małe natężenie światła) otrzymany obraz nie będzie nadawał się do opisywanych algorytmów. Skrajnym rozwiązaniem jest stosowanie kamery termowizyjnej. W wypadku takich urządzeń użytkownik zostaje uniezależniony od natężenia światła, dzięki czemu problemy opisywane wyżej nie występują. Wadą tego rozwiązania jest koszt kamery termowizyjnej. W chwili przygotowywania projektu koszt kamery termowizyjnej został oszacowany na 2 rzędy wielkości wyższy aniżeli koszt standardowej kamery. Przyjmuje się, że do działania opisywanego systemu dane wejściowe dostarczane przez urządzenie pobierające obraz są dobrej jakości.
 \chapter{Podstawy teoretyczne}
-Quisque nibh sapien, lobortis posuere, dignissim id, ultricies ut, est. Cras nec nunc nec ligula placerat ullamcorper. Maecenas consequat consequat nisi.
 
 
 \section{Przetwarzanie obrazów}
-Nulla quis enim ut erat rutrum feugiat. Suspendisse lacinia tempor mi. Vestibulum nec lacus sed est rutrum cursus. Cras ultrices est eget ped
 \section{Rozpoznawanie twarzy}
-Aliquam quis sem. Phasellus tincidunt fringilla metus. Sed id purus.
 
-\section{Uwierzytelnianie użytkownika}
-Proin venenatis nisl eget erat. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus
-\begin{itemize}
-\item Mauris nonummy lorem at orci.
-\item Donec accumsan aliquam libero.
-\item Donec fringilla ultricies diam.
-\item Nulla venenatis est non ligula.
-\item Morbi in mi convallis dolor accumsan egestas.
-\item Sed euismod nibh in nulla.
-\item Sed rhoncus lorem at lectus.
-\item Pellentesque fermentum rutrum dui.
-\end{itemize}
-
-Proin euismod. Curabitur adipiscing ipsum ac augue. Maecenas hendrerit tortor non velit suscipit laoreet. Aenean tempus. Nunc c
 
 \chapter{Opis programu}
-\section{Użyte algorytmy}
-Nulla a nisl at nisl dignissim facilisis. In sit amet mi. Nunc ullamcorper, ligula vel aliquam pretium, nulla mauris euismod ipsum, sit amet tempus massa nulla non elit. Donec congue. Nulla purus. Aenean dui orci, ornare quis, interdum sed, molestie ac, tellus. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Quisque mollis diam nec elit. Maecenas nec enim. Maecenas facilisis urna quis arcu. Fusce posuere.
-
 \section{Użyte technologie}
-Nam laoreet sagittis massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Morbi nulla. Cras eu dolor. Praesent et purus. Praesent mi turpis, ullamcorper ut, adipiscing eget, dictum ut, felis. Phasellus a metus. Etiam vulputate gravida pede. Aenean sit amet massa quis libero dapibus mattis. Suspendisse potenti. Cras placerat.
-citudin ligula.
+Program został stworzony w systemie operacyjnym Linux 3.13.0-39-generic \#66-Ubuntu SMP, Ubuntu 14.04 w języku C++(ISO/IEC C++ 2003) przy użyciu kompilatora g++ (Ubuntu 4.8.2-19ubuntu1) 4.8.2. Środowiskiem służącym do projektowania graficznego interfejsu użytkownika był program Qt Creator 3.0.1 oparty na bibliotece Qt 5.2.1. Oprócz wspominanych elementów zastosowane zostały biblioteki OpenCV 2.4.8, boost 1.54.0.1 przy tworzeniu kodu produkcyjnego- przeznaczonego do wytworzenie oprogramowania. Oprócz tego pomocniczo przy tworzeniu testów jednostkowych został użyty pakiet gmock 1.7.0.
+\subsection{OpenCV}
 
+OpenCV to otwarta biblioteka stworzona przez Intel. W momencie tworzenia projektu udostępnione był interfejs biblioteki w językach C++, C, Python, Java. Biblioteka może być używana w systemie Windows, Linux, Mac OS, iOS oraz Android. Pracę nad biblioteką zostały rozpoczęte w 1999 roku. Wersja dojrzała została udostępniona w 2006 roku. Biblioteka jest wydawana na licencji BSD(Berkeley Software Distribution License). Ta bardzo liberalna licencja pozwala nie tylko na modyfikacje kodu biblioteka, ale także rozprowadzanie go w takiej postaci. Pozwala także na rozprowadzanie produktu bez postaci źródłowej czy wręcz włączenie do zamkniętego oprogramowania, pod warunkiem załączenia do produktu informacji o autorach oryginalnego kodu i treści licencji.
+\subsection{Boost}
+
+Kolekcja bibliotek programistycznych poszerzających możliwości języka C++, objętych liberalną licencją(Boost Software License), która umożliwia użycie ich w dowolnym projekcie.
+
+Dzięki restrykcyjnemu systemowi recenzowania i kontroli jakości, biblioteki Boost są poważane ze względu na ich wysoką jakość oraz często stawiane za wzorcowy przykład nowoczesnego projektowania i programowania w C++. Dziedziny zastosowania Boost są bardzo szerokie, pakiet dostarcza m.in. biblioteki ogólnego przeznaczenia (inteligentne wskaźniki, wyrażenia regularne), biblioteki stanowiące warstwę abstrakcji dla systemu operacyjnego (obsługa systemów plików czy wielowątkowości), jak i narzędzia przeznaczone głównie dla innych twórców bibliotek i zaawansowanych programistów języka C++ (np. biblioteka metaprogramowania MPL). Kilka bibliotek wchodzących w poczet Boost zostało włączonych do pierwszego raportu technicznego komitetu standaryzacyjnego C++ (w jego skład wchodzi wielu spośród twórców Boost).\cite{wikiboost}
+\subsection{Qt}
+Zestaw przenośnych bibliotek i narzędzi programistycznych dedykowanych dla języków C++, QML i Java. Ich podstawowym składnikiem są klasy służące do budowy graficznego interfejsu programów komputerowych, począwszy od wersji 4.0 Qt zawiera też narzędzia do tworzenia programów konsolowych i serwerów.
+
+Środowisko Qt jest dostępne dla platform: X11 (m.in. GNU/Linux, BSD, Solaris), Windows, Mac OS X, Haiku oraz dla urządzeń wbudowanych opartych na Linuksie (Qt Extended), Windows CE, Symbian, Android. Qt jest podstawą dla m.in. uniksowego środowiska graficznego KDE oraz uniksowych wersji komunikatora internetowego Skype i programu Google Earth.
+
+Biblioteki Qt dostępne są w języku C++ i Java; mogą też być wykorzystywane w programach napisanych w innych językach, m.in. Ada (QtAda), C\# (Qyoto/Kimono), Pascal, Perl (Perl Qt4), PHP (PHP-Qt), Ruby (QtRuby) i Python (PyQt). Charakteryzują się w pełni obiektową architekturą.
+Licencje LGPL (v. 2.1), GPL (v. 3.0), komercyjna.\cite{wikiqt}
+\subsection{Gmock}
+Biblioteka do testów jednostkowych oprogramowania dla języka C++, bazująca na architekturze xUnit. Jest wydawana na licencji BSD 3. Może być używana na wielu platformach: Linux, Windows, Mac OS X.
+
+\section{Użyte algorytmy}
+\subsection{Detekcja twarzy}
+\subsection{Rozpoznawanie twarzy}
+Nulla a nisl
+
+\subsection{Szyfrowanie hasła}
+Szyfr Cezara (zwany też szyfrem przesuwającym, kodem Cezara lub przesunięciem Cezariańskim) – w kryptografii jedna z najprostszych technik szyfrowania. Jest to rodzaj szyfru podstawieniowego, w którym każda litera tekstu jawnego (niezaszyfrowanego) zastępowana jest inną, oddaloną od niej o stałą liczbę pozycji w alfabecie, literą (szyfr monoalfabetyczny), przy czym kierunek zamiany musi być zachowany. Nie rozróżnia się przy tym liter dużych i małych. Nazwa szyfru pochodzi od Juliusza Cezara.\cite{szyfrcezara}\\
+\includegraphics[scale=0.4]{caesar}
+
+Użyta w projekcie metoda szyfrowania rozróżnia duże i małe litery i przypisuje im wagi zgodne z tablicą ASCII. Przesunięcie wynosi 1. Szyfrowanie zostało zastosowane w projekcie do celów innych niż najczęściej rozumiane zabezpieczenie informacji. Przyjęte jest założenie, że użytkownicy, którzy próbują uzyskać dostęp do zasobów poprzez opisywany system nie mogą uzyskać dostępu do pliku, w którym przechowywane są dane dotyczące nazw użytkowników i ich haseł. Takie ograniczenie może wynikać z ograniczeń w interfejsie dostępnym dla użytkownika systemu, lub wprost z konstrukcji systemu operacyjnego, w którym uruchamiana jest aplikacja(można założyć, że aplikacja uruchomiona jest w systemie linux z uprawnieniami użytkownika root i w katalogu domowym teogo użytkownika, z czego wynika, że żaden użytkownik poza użytkownikiem root domyślnie nie będzie miał dostępu do czytania z bazy danych programu). Wprowadzenie szyfrowania zostało podyktowane możliwością przypadkowego otwarcia pliku przez administratora systemu. W takim wypadku administrator nie odczyta prawdziwego hasła. Dopiero celowa chęć odszyfrowania hasła może sprawić, że odczyta hasło innego użytkownika.
+
+Algorytm szyfrowania zastosowany w kodzie Cezara bywa fragmentem bardziej złożonych systemów szyfrowania, takich jak szyfr Vigenère'a. Współcześnie szyfru Cezara używa się z przesunięciem 13 (ROT13), będącego prostym i szybkim sposobem na ukrycie treści.
+%\begin{itemize}
+%\item Mauris nonummy lorem at orci.
+%\item Donec accumsan aliquam libero.
+%\item Donec fringilla ultricies diam.
+%\item Nulla venenatis est non ligula.
+%\item Morbi in mi convallis dolor accumsan egestas.
+%\item Sed euismod nibh in nulla.
+%\item Sed rhoncus lorem at lectus.
+%\item Pellentesque fermentum rutrum dui.
+%\end{itemize}
+
+\section{Podręcznik użytkownika}
+Program został napisany przez Dominik Guderskiego, jako element projektu inżynierskiego. Opracowanie zostało napisane 30.11.2014 r.
+
+Program do działania w folderze, w którym jest uruchamiany potrzebuje pliku haarcascade\_frontalface\_alt.xml oraz kamery poprawnie podłączonej i rozpoznanej przez system operacyjny. Po spełnieniu powyższych warunków i uruchomieniu programu ukazuje się okno:\\
+
+\includegraphics[scale=0.4]{programstarted}\\
+
+Każde pole przyjmujące informacje tekstowe od użytkownika(pola tekstowe takie jak login, password) przyjmują wyłącznie znaki należące do angielskiego alfabetu. Można wprowadzić inne znaki do samego pola formularza, jednak taki napis nie będzie dalej przetwarzany. By zalogować się do systemu należy wpisać poprawną nazwę użytkownika(login) oraz hasło. Oprócz konta root(admninstratora) wymagane jest także by na obrazie z kamery widocznym w prawej części okna logowania została wykryta twarz i by ta twarz została rozpoznana jako ta sama, która znajduje się w bazie danych przypisana do użytkownika, który próbuje się zalogować.
+
+W lewym górnym rogu okna dostępne jest menu admin, w którym zawarte są funkcje administracyjne:\\
+\includegraphics[scale=0.4]{contextmenu}\\
+
+Po wybraniu opcji add user(dodaj użytkownika) otwiera się nowe okno umożliwiające dodanie nowego użytkownika:\\
+\includegraphics[scale=0.4]{adduser}\\
+Aby dodać użytkownika należy wykonać 5 zdjęć, którę będą używane przy logowaniu do systemu(sprawdzanie czy twarz widniejąca na obrazie kamery w momencie logowania jest tą samą która została dodana do bazy danych dla danego użytkownika). Kiedy na obrazie po prawej stronie okna będzie widoczny prostokąt otaczający twarz użytkownika należy wcisnąć przycisk Capture. Czynność należy powtórzyć 5 razy. Gdy to zadanie zostanie wykonane pomyślnie przycisk Create user stanie się aktywny i będzie możliwe stworzenie nowego użytkownika po uzupełnieniu wszystkich pól formularza. Należy wpisać nazwę nowego użytkownika, hasło, powtórzyć hasło oraz hasło administratora(konto root). Po wykonaniu tych czynności i wciśnieciu przycisku Create user, jeśli nie pojawiły się inne błędy(błąd zapisu do pliku, ciąg znaków w polu password i repeated password nie są równe) nowy użytkownik zostanie dodany do bazy danych.
+
+Analogicznie skonstruowane zostało okno, które otwiera się gdy w głównym oknie programu z menu kontekstowego zostanie wybrana opcja delete user. Tutaj dane tekstowe, które podawane są przez użytkownika to: login(nazwa użytkownika) i root password(hasło administratora). W tym oknie nie ma obrazu z kamery, ponieważ do uwierzytelniania konta administratora nie używa się obrazu z kamery. Jeśli wszystkie dane zostały wpisane poprawnie i użytkownik istnieje w bazie usunięcie powiedzie się.\\
+\includegraphics[scale=0.9]{deluser}\\
+
+Gdy w głównym oknie programu wpiszemy poprawne dane uwierzytelniające uzyskamy dostęp do chronionych zasobów. Taka akcja może spowodować uruchomienie dowolnego okna, otwarcie dowolnego dokumentu. Do celów demonstracyjnych zostało wprowadzone okno pozwalające zmienić hasło użytkownika:\\
+\includegraphics[scale=0.7]{authenticated}\\
+
+Po poprawnym wypełnieniu wszystkich pól następuje zmiana dotychczasowego hasła na nowe dla wybranego użytkownika.
 \section{Struktura programu}
-Maecenas augue justo, iaculis ut, laoreet ac, ullamcorper sed, velit. In sollicitudin. Phasellus cursus nisl vitae urna auctor fermentum. Integer purus ipsum, tristique non, consectetuer pharetra, convallis ac, metus. Vestibulum nec nulla. Fusce convallis, dui nec dignissim dignissim, pede ipsum iaculis est, quis rhoncus nulla lorem nec nibh. Quisque viverra. Phasellus ac quam ac orci mattis dapibus. Sed id neque. Praesent at elit in enim vestibulum ornare. Aenean mauris enim, auctor nec, lacinia ut, pulvinar sit amet, diam.
+Program można podzielić koncepcyjnie na dwa elementy. Warstwę prezentacji i warstwę logiczną. Warstwę prezentacji stanowi kod odpowiedzialny za tworzenie i obsługę graficznego interfejsu użytkownika. Natomiast warstwa logiczna to klasy realizująca potrzebne algorytmy: komunikacje z bazą danych, kodowanie hasła czy też rozpoznawanie twarzy. Takie podejście jest zgodnę z paradygmatem pisania oprogramowania dla systemów z rodziny Linux.\\
+\includegraphics[scale=0.7]{classdiag}\\
+Jeżeli zajdzie potrzeba, można stworzyć graficzny interfejs użytkownika w zupełnie odmiennej technologii niż użyta w tym projekcie. Dzięki oddzieleniu dwóch warstw prezentacji i logicznej taka potrzeba może być zrealizowana w relatywnie krótkim czasie. Będzie wymagać mało prac reorganizujących kod.
 
-\section{Interface użytkownika}
-Proin nisl velit, blandit vitae, rhoncus et, ullamcorper nec, turpis. Quisque placerat sagittis odio. Ut non arcu. Morbi fringilla scelerisque erat. Duis mattis nulla vitae nisi consectetuer vehicula. Ut ultricies hendrerit velit. Vestibulum dignissim. Pellentesque feugiat, enim quis vehicula porttitor, eros quam blandit libero, sed ultrices lacus enim in urna. Vestibulum vitaus.
+Kolejną zaletą takiego rodzaju modularności kodu jest łatwość testowania. Począwszy od zautomatyzowanych testów jednostkowych, które w swoich scenariuszach testowych mogą tworzyć instancje poszczególnych klas wywoływać na nich metody ich interfejsów po czym sprawdzać wyniki. Istnieją nawet propozycje i możliwości zautomatyzowanego testowania wszystkich metod danej klasy, a nie tylko jej interfejsu jednak nie są one tak rozpowszechnione. Także testy manualne aplikacji, gdy uruchamiana z lini komend i odpowiednio dostosowana do scenariusza testowego mogą przebiegać sprawniej niż z graficznym interfejsem użytkownika.
 
- non, sagittis vel, faucibus sed, lacus. Sed consectetuer, velit nec aliquam imperdiet, ipsum nunc vehicula urna, non ultricies odio odio eget dui. Donec venenatis erat a diam. Phasellus vel neque.
+\chapter{Testowanie projektu}
 
-\chapter{Wyniki eksperymentów}
+Testowanie było dwuetapowe. Na etapie tworzenie implementacji warstwy logicznej równolegle z tworzenie implementacji powstawały testy jednostkowe pozwalające wykryć ewentualne błędy. Oprócz tego po napisaniu warstwy logicznej dodany został kod odpowiadający za warstwę prezentacji. W dużej mierze ten kod był testowany manualnie przez użytkownika. Wyniki testów całości można podzielić na trzy grupy:
+\begin{itemize}
+\item{Testowanie funkcjonalności uwierzytelniania kodem tekstowym i zarządzania użytkownikami}
+\item{Testowanie algorytmu wykrywającego twarz}
+\item{Testowanie algorytmu rozpoznającego twarz}
+\end{itemize}
 
-Etiam scelerisque vulputate nulla. Phasellus facilisis vehicula lectus. Nullam adipiscing nisi sit amet sapien. Cras tristique. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras laoreet urna sit amet est. Nunc faucibus. Integer bibendum ipsum a nunc. In non nisl. In elit elit, consequat et, nonummy vel, sollicitudin sed, felis. Mauris elit libero, malesuada non, sagittis vel, faucibus sed, lacus. Sed consectetuer, velit nec aliquam imperdiet, ipsum nunc vehicula urna, non ultricies odio odio eget dui. Donec venenatis erat a diam. Phasellus vel neque.
+\section{Testowanie funkcjonalności uwierzytelniania kodem tekstowym i zarządzania użytkownikami}
+Program poprawnie komunikuje się z bazą danych: dodaje, usuwa, modyfikuje użytkowników. Ponadto umożliwia zalogowanie się. Jedna z tych operacji może się nie powieść w wypadku, gdy np. system operacyjny nie pozwoli otworzyć jednego z plików, który należy do bazy danych.
 
+\section{Testowanie algorytmu wykrywającego twarz}
+Algorytm działa z dużą skutecznością. Nawet w trudnych warunkach oświetlenia(nierównomiernie doświetlone zdjęcie, małe natężenie oświetlenia) wykrywa z powodzeniem twarz. W testach manualnych autora, podczas obracania twarzy pod różnym kątem i stosowania różnego rodzaju oświetlenia oraz elementów ubioru(okulary, czapka) wykrywalność twarzy była na poziomie 80%.\\
+\includegraphics[scale=0.4]{cza1}
+\includegraphics[scale=0.4]{cza2}
+\includegraphics[scale=0.4]{cza3}\\
+\includegraphics[scale=0.4]{detectedface0}
+\includegraphics[scale=0.4]{detectedface1}
+\includegraphics[scale=0.4]{detectedface2}\\
+
+Choć pojawiają się sytuację, gdy przy trudnych warunkach twarz nie zostanie wykryta- brak prostokąta otaczającego twarz.\\
+\includegraphics[scale=0.4]{hatnotdet}\\
+
+W praktyce nie da się precyzyjnie wyznaczyć granicznego kąta obrotu twarzy względem obiektywu kamery gdy twarz przestaje być wykrywana. Bowiem oprócz wspomnianego parametru pojawia się wiele innych zmiennych- oświetlenie, cechy charakterystyczne danej twarzy, mimika czy ubiór.
+
+\section{Testowanie algorytmu rozpoznającego twarz}
 \chapter{Podsumowanie}
-Etiam scelerisque vulputate nulla. Phasellus facilisis vehicula lectus. Nullam adipiscing nisi sit amet sapien. Cras tristique. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras laoreet urna sit amet est. Nunc faucibus. Integer bibendum ipsum a nunc. In non nisl. In elit elit, consequat et, nonummy vel, sollicitudin sed, felis. Mauris elit libero, malesuada non, sagittis vel, faucibus sed, lacus. Sed consectetuer, velit nec aliquam imperdiet, ipsum nunc vehicula urna, non ultricies odio odio eget dui. Donec venenatis erat a diam. Phasellus vel neque.
+Etiam scelerisque vulputate nulla. Phasellus facilisis vehicula lectus. Nullam adipiscing nisi sit amet sapien.
 
-\appendix
-\chapter{Doxygen}
-
-Sed augue orci, porttitor vitae, rhoncus id, molestie nec, sem. Maecenas non nisi a risus porta dapibus. Curabitur ut mi. Morbi a est sed lacus rutrum ornare. Duis tempus luctus tellus. In hac habitasse platea dictumst. Nullam purus dui, consequat consequat, dignissim et, molestie sit amet, neque. Phasellus orci arcu, semper eget, mollis vel, imperdiet sed, mi. Nulla erat enim, ornare id, pellentesque id, placerat ac, ipsum. Proin vestibulum rhoncus pede. Praesent placerat pharetra arcu. Aenean interdum ipsum rutrum nisl. Curabitur lacinia tincidunt sapien. Nunc sem mauris, molestie in, egestas ac, porta at, erat.
-.
-
-Vestibulum eget nulla non est eleifend ultricies. Nam cursus nisi ac ante. Quisque sagittis dictum dui. Nullam faucibus molestie augue. Nulla facilisi. Sed ut magna. Fusce facilisis sodales libero. Nulla nonummy lacus quis leo. Aenean a libero. In pretium ornare diam. Mauris sed eros ut mauris tempor fringilla. Donec nunc pede, pretium fringilla, gravida eu, laoreet ut, pede.
 \addcontentsline{toc}{chapter}{Bibliografia} %utworzenie w spisie treĹ›ci pozycji Bibliografia
 %\bibliography{bibliografia} % wstawia bibliografiÄ™ korzystajÄ…c z pliku bibliografia.bib - dotyczy BibTeXa, jeĹĽeli nie korzystamy z BibTeXa naleĹĽy uĹĽyÄ‡ otoczenia thebibliography
-\begin{thebibliography}{12}
+\begin{thebibliography}{15}
 
 \bibitem{masteringopencv} Daniel Lelis Baggio, Mastering OpenCV with Practical Computer Vision Projects
 \bibitem{learningopencv} Adrian Kaehler, Gary Bradski, Learning OpenCV 2nd Edition
+\bibitem{rafajlowicz09}  Ewaryst Rafajłowicz, Wojciech Rafajłowicz, Andrzej Rusiecki, Algorytmy przetwarzania obrazów i wstęp do pracy z biblioteką OpenCV
 \bibitem{guiqt} Jasmin Blanchette, Mark Summerfield, C++ GUI Programming with Qt 4, Second Edition
+\bibitem{cleancode} Robert C. Martin, Czysty kod. Podręcznik dobrego programisty
 \bibitem{boost} http://www.boost.org/doc/
 \bibitem{stl} http://www.cplusplus.com/reference/
 \bibitem{opencv} http://docs.opencv.org/
-\bibitem{cleancode} Robert C. Martin, Czysty kod. Podręcznik dobrego programisty
 \bibitem{facedetection} http://www.multimedia-computing.de/mediawiki//images/5/52/MRL-TR-May02-revised-Dec02.pdf
 \bibitem{historyreco} History of Face Recognition http://vismod.media.mit.edu/tech-reports/TR-516/node7.html
+\bibitem{wikiboost} http://pl.wikipedia.org/wiki/Boost
+\bibitem{wikiqt} http://pl.wikipedia.org/wiki/Qt
+\bibitem{szyfrcezara} http://pl.wikipedia.org/wiki/Szyfr\_Cezara
 \end{thebibliography}
 
 %opcjonalnie moĹĽe siÄ™ tu pojawiÄ‡ spis rysunkĂłw i tabel
-% \listoffigures
+ %\listoffigures
 % \listoftables
 \end{document}
 
