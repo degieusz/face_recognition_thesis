@@ -1,12 +1,6 @@
-%PrzykĹ‚adowy plik uĹ‚atwiajÄ…cy zĹ‚oĹĽenie projektu dyplomowego inĹĽynierskiego.
-%UWAGA: Generowany napis na stronie tytuĹ‚owej o treĹ›ci PROJEKT DYPLOMOWY INĹ»YNIERSKI zostaĹ‚ zaproponowany przeze mnie i nie jest, pĂłki co, potwierdzony przez wĹ‚adze wydziaĹ‚u. Przed ostatecznym oddaniem tak zĹ‚oĹĽonej pracy naleĹĽy upewniÄ‡ siÄ™ jaka powinna byÄ‡ treĹ›Ä‡ tego napisu. W momencie gdy uzyskam informacjÄ™ na temat treĹ›ci tego napisu, dokonam niezbÄ™dnych zmian w ĹşrĂłdĹ‚ach.
-
 \documentclass[eng,printmode]{mgr}
-%opcje klasy dokumentu mgr.cls zostaĹ‚y opisane w doĹ‚Ä…czonej instrukcji
 
-%poniĹĽej deklaracje uĹĽycia pakietĂłw, usunÄ…Ä‡ to co jest niepotrzebne
 \usepackage{polski} %przydatne podczas skĹ‚adania dokumentĂłw w j. polskim
-%\usepackage[polish]{babel}%alternatywnie do pakietu polski, wybraÄ‡ jeden z nich
 \usepackage[utf8]{inputenc} %kodowanie znakĂłw, zaleĹĽne od systemu
 \usepackage[T1]{fontenc} %poprawne skĹ‚adanie polskich czcionek
 
@@ -15,41 +9,34 @@
 \usepackage{subfigure}
 \usepackage{psfrag}
 
-%pakiety dodajÄ…ce duĹĽo dodatkowych poleceĹ„ matematycznych
 \usepackage{amsmath}
 \usepackage{amsfonts}
 
-%pakiety wspomagajÄ…ce i poprawiajÄ…ce skĹ‚adanie tabel
 \usepackage{supertabular}
 \usepackage{array}
 \usepackage{tabularx}
 \usepackage{hhline}
 \usepackage{float}
-%pakiet wypisujÄ…cy na marginesie etykiety rĂłwnaĹ„ i rysunkĂłw zdefiniowanych przez \label{}, chcÄ…c wygenerowaÄ‡ finalnÄ… wersjÄ™ dokumentu wystarczy usunÄ…Ä‡ poniĹĽszÄ… liniÄ™
 \usepackage{showlabels}
 
-%definicje wĹ‚asnych poleceĹ„
 \newcommand{\R}{I\!\!R} %symbol liczb rzeczywistych, dziaĹ‚a tylko w trybie matematycznym
 \newtheorem{theorem}{Twierdzenie}[section] %nowe otoczenie do skĹ‚adania twierdzeĹ„
 
-%dane do zĹ‚oĹĽenia strony tytuĹ‚owej
 \title{Aplikacja do identyfikacji i rozpoznawania twarzy użytkownika w celu zabezpieczenia dostępu przy użyciu technologii Qt}
 \engtitle{Qt based secure access application using face detection and identification}
 \author{Dominik Guderski}
 \supervisor{dr inż. Andrzej Rusiecki, W-4/K-9}
-%\guardian{dr hab. inĹĽ. ImiÄ™ Nazwisko Prof. PWr, I-6} %nie uĹĽywaÄ‡ jeĹ›li opiekun jest tÄ… samÄ… osobÄ… co prowadzÄ…cy pracÄ™
 \graphicspath{ {../img/}}
-%\date{2008} %standardowo u doĹ‚u strony tytuĹ‚owej umieszczany jest bieĹĽÄ…cy rok, to polecenie pozwala wstawiÄ‡ dowolny rok
 
 \field{Automatyka i Robotyka (AIR)}
 \specialisation{Technologie Informacyjne w Systemach Automatyki (ART)}
 \begin{document}
-\bibliographystyle{plabbrv} %tylko gdy uĹĽywamy BibTeXa, ustawia polski styl bibliografii
+\bibliographystyle{plabbrv}
 
-\maketitle %polecenie generujÄ…ce stronÄ™ tytuĹ‚owÄ…
+\maketitle
 \dedication{6cm}{Projekt dedykuję rodzicom.}
 
-\tableofcontents %spis treĹ›ci
+\tableofcontents
 
 
 \chapter{Wstęp}
@@ -58,11 +45,11 @@ Rozpoznawanie twarzy jako technika biometryczna służąca do identyfikacji osó
 Główną cechą rozpoznawania twarzy jest bezinwazyjność. Wystarczy spojrzenie w obiektyw. Systemy wykrywające i rozpoznające twarz wymagają szczególnych warunków otoczenia do poprawnego działania. Zmiany oświetlenia, położenia twarzy względem urządzenia rejestrującego mogą w znaczny sposób zaburzyć działanie algorytmu detekcji i rozpoznawania twarzy. W skrajnych przypadkach zmiana oświetlenia lub zmiana położenia twarzy względem urządzenia rejestrującego może uniemożliwić działanie algorytmów.
 \section{Cel i zakres programu}
 
-Niniejsza praca dotyczy praktycznego zagadnienia zabezpieczania dostępu do zasobów. Autor zaimplementował dwuelementowe uwierzytelnianie. Sprawdzana jest znajomość zdefiniowanego wcześniej hasła dla danego użytkownika oraz porównywana jest twarz odczytana z kamery z informacjami zawartymi w bazie danych. Moduł uwierzytelniania i obsługi informacji o użytkownikach został zaimplementowany przez autora od podstaw. Za bazę do stworzenia algorytmu identyfikacji oraz rozpoznawania twarzy posłużyła biblioteka openCV. Głównym celem było stworzenie programu, który realizowałbym zadanie kontrolowania dostępu do zasobów poprzez rozpoznawanie twarzy w czasie rzeczywistym porównując z twarzami wzorcowymi oraz sprawdzanie znajomości hasła.
+Niniejsza praca dotyczy praktycznego zagadnienia zabezpieczania dostępu do zasobów. Autor zaimplementował dwuelementowe uwierzytelnianie. Sprawdzana jest znajomość zdefiniowanego wcześniej hasła dla danego użytkownika oraz porównywana jest twarz odczytana z kamery z informacjami zawartymi w bazie danych. Moduł uwierzytelniania i obsługi informacji o użytkownikach został zaimplementowany przez autora od podstaw. Za bazę do stworzenia algorytmu identyfikacji oraz rozpoznawania twarzy posłużyła biblioteka OpenCV. Głównym celem było stworzenie programu, który realizowałbym zadanie kontrolowania dostępu do zasobów poprzez rozpoznawanie twarzy w czasie rzeczywistym porównując z twarzami wzorcowymi oraz sprawdzanie znajomości hasła.
 
 \section{Układ pracy}
 
-We wstępie został opisany temat pracy, poruszone w niej zagadnienia oraz problemy związane z tematyką. W rozdziale drugim przedstawiono opis zagadnień teoretycznych związanych z tematem pracy. Opisano metody oraz biblioteki użyte w procesie realizacji założen projektu. W podsumowaniu znajdują się wnioski czego udało się dokonać, czego udało się uniknąc i co sprawiło problemy. Podana też została propozycja jednej ze ścieżek dalszego rozwoju aplikacji.
+We wstępie został opisany temat pracy, poruszone w niej zagadnienia oraz problemy związane z tematyką. W rozdziale drugim przedstawiono opis zagadnień teoretycznych związanych z tematem pracy. Opisano metody oraz biblioteki użyte w procesie realizacji założeń projektu. W podsumowaniu znajdują się wnioski czego udało się dokonać, czego udało się uniknąć i co sprawiło problemy. Podana też została propozycja jednej ze ścieżek dalszego rozwoju aplikacji.
 \section{Koncepcja rozwiązania problemu}
 
 By zrealizować idee uwierzytelniania użytkownika na podstawie hasła oraz zdjęcia twarzy potrzebne są dwa elementy. Baza danych zawierająca nazwę użytkownika i hasło, oraz baza danych zawierająca wzorcowe zdjęcia twarzy powiązane z użytkownikiem. Oczywiście kwestią implementacyjną jest czy owe bazy będą jednym obiektem, czy też dwoma. W wypadku opisywanego projektu wybrane zostało podejście dwóch baz. Oczywiście obie te bazy są ze sobą synchronizowane i razem tworzą koncepcyjnie jedną bazę danych, nazywaną dalej bazą danych użytkowników.
@@ -99,7 +86,10 @@ Wyjątkowym przypadkiem, o którym należy wspomnieć jest konto administratora(
 
 W celu detekcji i rozpoznawania twarzy została użyta biblioteka OpenCV. Detekcja twarzy odbywa się przy użyciu funkcji Haar-like, umożliwiającej dość dobrą i szybką detekcję obiektów. Rozpoznawanie jest zrealizowane za pomocą metody EigenFace.
 
-Podstawowy problem- szybkość przetwarzania obrazu, który zależy od mocy obliczeniowej komputera oraz zaimplementowanego algorytmu. Ważna kwestią jest poprawność wykrywania twarzy. W wypadku gdy algorytm wykryje twarz w miejscu gdzię rzeczywiście jej nie ma może to prowadzić do błędnego działania programu, a także oznacza marnowanie zasobów. Z tego powodu w programie został przyjęty minimalny rozmiar wykrytej twarzy (50x50 pixeli). Wykryte obiekty mniejsze od tej granicznej wielkości nie są przetwarzane.
+Podstawowy problem- szybkość przetwarzania obrazu, który zależy od mocy obliczeniowej
+komputera oraz zaimplementowanego algorytmu. Ważna kwestią jest poprawność wykrywania
+twarzy. W wypadku gdy algorytm wykryje twarz w miejscu gdzię rzeczywiście jej nie ma może
+to prowadzić do błędnego działania programu, a także oznacza marnowanie zasobów. Z tego powodu w programie został przyjęty minimalny rozmiar wykrytej twarzy (50x50 pikseli). Wykryte obiekty mniejsze od tej granicznej wielkości nie są przetwarzane.
 
 Takie podejście nie rozwiązuje jednak wszystkich problemów. Nadal może dojść do sytuacji, w której algorytm wykryje obszar obrazu twierdząc, że jest to twarz podczas gdy nie będzie to twarz.\\
 \begin{figure}[placement h]
@@ -107,9 +97,9 @@ Takie podejście nie rozwiązuje jednak wszystkich problemów. Nadal może dojś
 \caption{Twarz wykryta w niewłaściwym miejscu}
 \end{figure}
 
-Program, który wykorzystuje funkcję Haar-like bazujący na rozpoznawaniu założonych wzorców jest szybki i dobrze pracuje w czasie rzeczywistym, jednak losowe zakłucenia w obrazie wejściowym(np. zła jakość obrazu, oświetlenie, niejednolite tło) mogą prowadzić do wskazania fragmentu obrazu nie zawierającego twarzy.\\
+Program, który wykorzystuje funkcję Haar-like bazujący na rozpoznawaniu założonych wzorców jest szybki i dobrze pracuje w czasie rzeczywistym, jednak losowe zakłócenia w obrazie wejściowym(np. zła jakość obrazu, oświetlenie, niejednolite tło) mogą prowadzić do wskazania fragmentu obrazu nie zawierającego twarzy.\\
 
-Podobny błąd może powodować umieszczenie przed obiektywem kamery ekranu lcd, na którym wyświetlane jest zdjęcie twarzy. Owym ekranem może być telefon komórkowy, tablet. Co oznacza, że podobny efekt działania algorytmu może być osiągnięty poprzez umieszczenie np. manekina przed obiektywem kamery.\\
+Podobny błąd może powodować umieszczenie przed obiektywem kamery ekranu LCD, na którym wyświetlane jest zdjęcie twarzy. Owym ekranem może być telefon komórkowy, tablet. Co oznacza, że podobny efekt działania algorytmu może być osiągnięty poprzez umieszczenie np. manekina przed obiektywem kamery.\\
 \begin{figure}[placement h]
 \includegraphics[scale=0.4]{cellphone}
 \caption{Twarz wykryta na ekranie LCD}
@@ -133,7 +123,7 @@ Z połączenia barw RGB w dowolnych kombinacjach ilościowych można otrzymać s
 
 Model RGB miał pierwotnie zastosowanie do techniki analogowej, obecnie ma również do cyfrowej. Jest szeroko wykorzystywany w urządzeniach analizujących obraz (np. aparaty cyfrowe, skanery) oraz w urządzeniach wyświetlających obraz (np. telewizory, monitory komputerowe).
 
-Zapis koloru jako RGB często stosuje się w informatyce (np. palety barw w plikach graficznych, w plikach html). Najczęściej stosowany jest 24-bitowy zapis kolorów (po 8 bitów na każdą z barw składowych), w którym każda z barw jest zapisana przy pomocy składowych, które przyjmują wartość z zakresu 0-255. W modelu RGB wartość 0 wszystkich składowych daje kolor czarny, natomiast 255 – kolor biały. W rzadszych przypadkach stosuje się model, w którym przypada po 12 lub 16 bitów na każdą ze składowych, co daje dużo większe możliwości przy manipulowaniu kolorem.\cite{wikirgb} \\
+Zapis koloru jako RGB często stosuje się w informatyce (np. palety barw w plikach graficznych, w plikach HTML). Najczęściej stosowany jest 24-bitowy zapis kolorów (po 8 bitów na każdą z barw składowych), w którym każda z barw jest zapisana przy pomocy składowych, które przyjmują wartość z zakresu 0-255. W modelu RGB wartość 0 wszystkich składowych daje kolor czarny, natomiast 255 – kolor biały. W rzadszych przypadkach stosuje się model, w którym przypada po 12 lub 16 bitów na każdą ze składowych, co daje dużo większe możliwości przy manipulowaniu kolorem.\cite{wikirgb} \\
 Kolor RGB można obliczyć ze wzoru:
 \\
 \text{numer koloru} = R * 65536 + G * 256 + B\\
@@ -147,7 +137,7 @@ gdzie R, G i B przyjmują wartość od 0 do 255.\\
 Oprócz wspomnianego modelu istnieje także BGR(używany np. w OpenCV), który różni się od wyżej opisanego kolejnością następowania po sobie 3 bazowych kolorów.
 \section{Identyfikacja twarzy}
 
-Klasyfikator Haar'a jest to element zaimplementowany w bibliotece OpenCV. Może służyć do wykrywania obiektów na obrazie. W projekcie posłużył do wykrywania twarzy. Klasyfikator bazuje na kaskadzie stworzonej z wektora uczącego. Kaskada ta, w formie pliku xml z danymi jest dostarczana jako część biblioteki OpenCV. Bazując na zaimplementowanym w bibliotece algorytmie oraz dostarczonym plik z ciągami uczącymi pozwala na wykrycie twarzy na zdjęciu. Wyszukiwanie dla całego obrazu wejściowego realizowana jest przy pomocy koncepcji okna. Prostokąt o szerokości i wysokości mniejszej niż obraz wejściowy przesuwany jest po obrazie wejściowym. Algorytm wyszukiwania obiektu jest realizowany na tak zdefiniwanym przez prostokąt fragmencie obrazu. Klasyfikator można zakwalifikować jako algorytm o dużym obciążeniu, ale także o duzej dokładności działania.
+Klasyfikator Haar'a jest to element zaimplementowany w bibliotece OpenCV. Może służyć do wykrywania obiektów na obrazie. W projekcie posłużył do wykrywania twarzy. Klasyfikator bazuje na kaskadzie stworzonej z wektora uczącego. Kaskada ta, w formie pliku XML z danymi jest dostarczana jako część biblioteki OpenCV. Bazując na zaimplementowanym w bibliotece algorytmie oraz dostarczonym plik z ciągami uczącymi pozwala na wykrycie twarzy na zdjęciu. Wyszukiwanie dla całego obrazu wejściowego realizowana jest przy pomocy koncepcji okna. Prostokąt o szerokości i wysokości mniejszej niż obraz wejściowy przesuwany jest po obrazie wejściowym. Algorytm wyszukiwania obiektu jest realizowany na tak zdefiniowanym przez prostokąt fragmencie obrazu. Klasyfikator można zakwalifikować jako algorytm o dużym obciążeniu, ale także o dużej dokładności działania.
 
 \section{Szyfrowanie hasła}
 
@@ -157,7 +147,7 @@ Szyfr Cezara (zwany też szyfrem przesuwającym, kodem Cezara lub przesunięciem
 \caption{Szyfr Cezara}
 \end{figure}
 
-Użyta w projekcie metoda szyfrowania rozróżnia duże i małe litery i przypisuje im wagi zgodne z tablicą ASCII. Przesunięcie wynosi 1. Szyfrowanie zostało zastosowane w projekcie do celów innych niż najczęściej rozumiane zabezpieczenie informacji. Przyjęte jest założenie, że użytkownicy, którzy próbują uzyskać dostęp do zasobów poprzez opisywany system nie mogą uzyskać dostępu do pliku, w którym przechowywane są dane dotyczące nazw użytkowników i ich haseł. Takie ograniczenie może wynikać z ograniczeń w interfejsie dostępnym dla użytkownika systemu, lub wprost z konstrukcji systemu operacyjnego, w którym uruchamiana jest aplikacja(można założyć, że aplikacja uruchomiona jest w systemie linux z uprawnieniami użytkownika root i w katalogu domowym teogo użytkownika, z czego wynika, że żaden użytkownik poza użytkownikiem root domyślnie nie będzie miał dostępu do czytania z bazy danych programu). Wprowadzenie szyfrowania zostało podyktowane możliwością przypadkowego otwarcia pliku przez administratora systemu. W takim wypadku administrator nie odczyta prawdziwego hasła. Dopiero celowa chęć odszyfrowania hasła może sprawić, że odczyta hasło innego użytkownika.
+Użyta w projekcie metoda szyfrowania rozróżnia duże i małe litery i przypisuje im wagi zgodne z tablicą ASCII. Przesunięcie wynosi 1. Szyfrowanie zostało zastosowane w projekcie do celów innych niż najczęściej rozumiane zabezpieczenie informacji. Przyjęte jest założenie, że użytkownicy, którzy próbują uzyskać dostęp do zasobów poprzez opisywany system nie mogą uzyskać dostępu do pliku, w którym przechowywane są dane dotyczące nazw użytkowników i ich haseł. Takie ograniczenie może wynikać z ograniczeń w interfejsie dostępnym dla użytkownika systemu, lub wprost z konstrukcji systemu operacyjnego, w którym uruchamiana jest aplikacja(można założyć, że aplikacja uruchomiona jest w systemie linux z uprawnieniami użytkownika root i w katalogu domowym tego użytkownika, z czego wynika, że żaden użytkownik poza użytkownikiem root domyślnie nie będzie miał dostępu do czytania z bazy danych programu). Wprowadzenie szyfrowania zostało podyktowane możliwością przypadkowego otwarcia pliku przez administratora systemu. W takim wypadku administrator nie odczyta prawdziwego hasła. Dopiero celowa chęć odszyfrowania hasła może sprawić, że odczyta hasło innego użytkownika.
 
 Algorytm szyfrowania zastosowany w kodzie Cezara bywa fragmentem bardziej złożonych systemów szyfrowania, takich jak szyfr Vigenère'a. Współcześnie szyfru Cezara używa się z przesunięciem 13 (ROT13), będącego prostym i szybkim sposobem na ukrycie treści.
 \chapter{Opis programu}
@@ -218,7 +208,7 @@ Program do działania w folderze, w którym jest uruchamiany potrzebuje pliku ha
 \caption{Główne okno programu}
 \end{figure}
 
-Każde pole przyjmujące informacje tekstowe od użytkownika(pola tekstowe takie jak login, password) przyjmują wyłącznie znaki należące do angielskiego alfabetu. Można wprowadzić inne znaki do samego pola formularza, jednak taki napis nie będzie dalej przetwarzany. By zalogować się do systemu należy wpisać poprawną nazwę użytkownika(login) oraz hasło. Oprócz konta root(admninstratora) wymagane jest także by na obrazie z kamery widocznym w prawej części okna logowania została wykryta twarz i by ta twarz została rozpoznana jako ta sama, która znajduje się w bazie danych przypisana do użytkownika, który próbuje się zalogować.
+Każde pole przyjmujące informacje tekstowe od użytkownika(pola tekstowe takie jak login, password) przyjmują wyłącznie znaki należące do angielskiego alfabetu. Można wprowadzić inne znaki do samego pola formularza, jednak taki napis nie będzie dalej przetwarzany. By zalogować się do systemu należy wpisać poprawną nazwę użytkownika(login) oraz hasło.  Oprócz konta root(administratora) wymagane jest także by na obrazie z kamery widocznym w prawej części okna logowania została wykryta twarz i by ta twarz została rozpoznana jako ta sama, która znajduje się w bazie danych przypisana do użytkownika, który próbuje się zalogować.
 
 W lewym górnym rogu okna dostępne jest menu admin, w którym zawarte są funkcje administracyjne:\\
 \begin{figure}[placement h]
@@ -231,7 +221,7 @@ Po wybraniu opcji add user(dodaj użytkownika) otwiera się nowe okno umożliwia
 \includegraphics[scale=0.4]{adduser}
 \caption{Okno dodania użytkownika}
 \end{figure}\\
-Aby dodać użytkownika należy wykonać 5 zdjęć, którę będą używane przy logowaniu do systemu(sprawdzanie czy twarz widniejąca na obrazie kamery w momencie logowania jest tą samą która została dodana do bazy danych dla danego użytkownika). Kiedy na obrazie po prawej stronie okna będzie widoczny prostokąt otaczający twarz użytkownika należy wcisnąć przycisk Capture. Czynność należy powtórzyć 5 razy. Gdy to zadanie zostanie wykonane pomyślnie przycisk Create user stanie się aktywny i będzie możliwe stworzenie nowego użytkownika po uzupełnieniu wszystkich pól formularza. Należy wpisać nazwę nowego użytkownika, hasło, powtórzyć hasło oraz hasło administratora(konto root). Po wykonaniu tych czynności i wciśnieciu przycisku Create user, jeśli nie pojawiły się inne błędy(błąd zapisu do pliku, ciąg znaków w polu password i repeated password nie są równe) nowy użytkownik zostanie dodany do bazy danych.
+Aby dodać użytkownika należy wykonać 5 zdjęć, które będą używane przy logowaniu do systemu(sprawdzanie czy twarz widniejąca na obrazie kamery w momencie logowania jest tą samą która została dodana do bazy danych dla danego użytkownika). Kiedy na obrazie po prawej stronie okna będzie widoczny prostokąt otaczający twarz użytkownika należy wcisnąć przycisk Capture. Czynność należy powtórzyć 5 razy. Gdy to zadanie zostanie wykonane pomyślnie przycisk Create user stanie się aktywny i będzie możliwe stworzenie nowego użytkownika po uzupełnieniu wszystkich pól formularza. Należy wpisać nazwę nowego użytkownika, hasło, powtórzyć hasło oraz hasło administratora(konto root). Po wykonaniu tych czynności i wciśnięciu przycisku Create user, jeśli nie pojawiły się inne błędy(błąd zapisu do pliku, ciąg znaków w polu password i repeated password nie są równe) nowy użytkownik zostanie dodany do bazy danych.
 
 Analogicznie skonstruowane zostało okno, które otwiera się gdy w głównym oknie programu z menu kontekstowego zostanie wybrana opcja delete user. Tutaj dane tekstowe, które podawane są przez użytkownika to: login(nazwa użytkownika) i root password(hasło administratora). W tym oknie nie ma obrazu z kamery, ponieważ do uwierzytelniania konta administratora nie używa się obrazu z kamery. Jeśli wszystkie dane zostały wpisane poprawnie i użytkownik istnieje w bazie usunięcie powiedzie się.\\
 \begin{figure}[placement h]
@@ -247,14 +237,14 @@ Gdy w głównym oknie programu wpiszemy poprawne dane uwierzytelniające uzyskam
 
 Po poprawnym wypełnieniu wszystkich pól następuje zmiana dotychczasowego hasła na nowe dla wybranego użytkownika.
 \section{Struktura programu}
-Program można podzielić koncepcyjnie na dwa elementy. Warstwę prezentacji i warstwę logiczną. Warstwę prezentacji stanowi kod odpowiedzialny za tworzenie i obsługę graficznego interfejsu użytkownika. Natomiast warstwa logiczna to klasy realizująca potrzebne algorytmy: komunikacje z bazą danych, kodowanie hasła czy też rozpoznawanie twarzy. Takie podejście jest zgodnę z paradygmatem pisania oprogramowania dla systemów z rodziny Linux.\\
+Program można podzielić koncepcyjnie na dwa elementy. Warstwę prezentacji i warstwę logiczną. Warstwę prezentacji stanowi kod odpowiedzialny za tworzenie i obsługę graficznego interfejsu użytkownika. Natomiast warstwa logiczna to klasy realizująca potrzebne algorytmy: komunikacje z bazą danych, kodowanie hasła czy też rozpoznawanie twarzy. Takie podejście jest zgodne z paradygmatem pisania oprogramowania dla systemów z rodziny Linux.\\
 \begin{figure}[placement h]
 \includegraphics[scale=0.7]{classdiag}
 \caption{Diagram klas programu}
 \end{figure}\\
 Jeżeli zajdzie potrzeba, można stworzyć graficzny interfejs użytkownika w zupełnie odmiennej technologii niż użyta w tym projekcie. Dzięki oddzieleniu dwóch warstw prezentacji i logicznej taka potrzeba może być zrealizowana w relatywnie krótkim czasie. Będzie wymagać mało prac reorganizujących kod.
 
-Kolejną zaletą takiego rodzaju modularności kodu jest łatwość testowania. Począwszy od zautomatyzowanych testów jednostkowych, które w swoich scenariuszach testowych mogą tworzyć instancje poszczególnych klas wywoływać na nich metody ich interfejsów po czym sprawdzać wyniki. Istnieją nawet propozycje i możliwości zautomatyzowanego testowania wszystkich metod danej klasy, a nie tylko jej interfejsu jednak nie są one tak rozpowszechnione. Także testy manualne aplikacji, gdy uruchamiana z lini komend i odpowiednio dostosowana do scenariusza testowego mogą przebiegać sprawniej niż z graficznym interfejsem użytkownika.
+Kolejną zaletą takiego rodzaju modularności kodu jest łatwość testowania. Począwszy od zautomatyzowanych testów jednostkowych, które w swoich scenariuszach testowych mogą tworzyć instancje poszczególnych klas wywoływać na nich metody ich interfejsów po czym sprawdzać wyniki. Istnieją nawet propozycje i możliwości zautomatyzowanego testowania wszystkich metod danej klasy, a nie tylko jej interfejsu jednak nie są one tak rozpowszechnione. Także testy manualne aplikacji, gdy uruchamiana z linii komend i odpowiednio dostosowana do scenariusza testowego mogą przebiegać sprawniej niż z graficznym interfejsem użytkownika.
 
 \chapter{Testowanie projektu}
 
